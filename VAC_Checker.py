@@ -54,7 +54,8 @@ def api_options():  # API options
 def Steam_options():  # Steam options
     print(pause)
     print(
-        '1. Add steam ID' '\n' '2. Remove Steam ID''\n''3. Steam ID Converter''\n''8. Steam ID64 checker (external site)''\n''9. Main Menu')
+        '1. Add steam ID' '\n' '2. Remove Steam ID (NOT WORKING YET)''\n''3. Steam ID Converter''\n'
+        '7. Advanced steam ID converter (another script) ''8. Steam ID64 checker (external site)''\n''9. Main Menu')
     userinput2 = input('Enter number: ')
     if userinput2 == '1':
         print(pause)
@@ -70,6 +71,9 @@ def Steam_options():  # Steam options
         Steam_options()
     elif userinput2 == '3':  # STEAM ID CONVERTER
         Steam_ID_converter()
+    elif userinput2 == '7':
+        webbrowser.open_new('https://github.com/arhi3a/Steam-ID-Converter')
+        Steam_options()
     elif userinput2 == '8':  # Steam ID64 checker site
         webbrowser.open_new('https://steamid.io/lookup/')
         Steam_options()
@@ -96,8 +100,8 @@ def acc_check():
 
 def Steam_ID_converter():
     print(pause)
-    print('1. Convert SteamID32 to SteamID64' '\n' '2. SteamID to SteamID64'
-          '\n' '3. Get SteamID64 from nickname' '\n' '8. Return to Steam Options' '\n''9. Main Menu')
+    print('1. Convert SteamID32 to SteamID64 (xxxxxxxx) ' '\n' '2. SteamID to SteamID64 (Steam_x:x:xxxxxxxx)'
+          '\n' '3. Get SteamID64 from nickname (NOT WORKING YET)' '\n' '8. Return to Steam Options' '\n''9. Main Menu')
     userinput3 = input('Enter number: ')
     ID_change_value = 76561197960265728
     if userinput3 == '1':  # ID32 to ID64 xxxxxxxxxxxxxxxxx(x= numbers)
@@ -105,7 +109,18 @@ def Steam_ID_converter():
         userinput4 = input('Enter SteamID32: ')
         sum = int(userinput4) + int(ID_change_value)
         print('SteamID64: {0} '.format(sum))
-        Steam_ID_converter()
+        userinput9 = input('Do you want to add SteamID64 to ban check list?' '\n' '1. Yes' '\n' '2. No' '\n' ': ')
+        if userinput9 == '1':
+            print(pause)
+            file = open('Steam_id_list.txt', "a")
+            file.write(str(sum) + ',')
+            file.close()
+            print('SteamID64: {0} '.format(sum), 'Has been saved')
+            Steam_ID_converter()
+        elif userinput9 == '2':
+            Steam_ID_converter()
+        else:
+            Steam_ID_converter()
     elif userinput3 == '2':  # SteamID to ID64  STEAM_0:y:zzzzzzz
         print(pause)
         userinput6 = input('Enter Steam ID: ')  # User ID input
@@ -187,8 +202,3 @@ def process_data():
 
 
 main()
-###TO DO
-###COMPARE DATA OLD TO NEW (SEE NEW BANNED ACC)
-###SAVE DATA FROM ID FINDER FROM NICK TO BAN CHECK LIST
-###GET NICK NAME NOT STEAM ID ON CHECK LIST
-###LINK TO PROFILE
