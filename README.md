@@ -10,7 +10,7 @@ API Options:<br />
 ![](http://i.imgur.com/tauU5ko.png)<br />
 Steam options:<br />
 ![](http://i.imgur.com/NpZxfmm.png)<br />
-Steam ID converter<br />
+Steam ID converter:<br />
 ![](http://i.imgur.com/qqk0BZK.png)<br />
 Results of check for banned accounts:<br />
 xxxxxxxxxxx Vac Banned || 1 time || Last time: 1202 Days ago<br />
@@ -28,3 +28,4 @@ etc.
 - Get SteamID64 just by writing nickname
 - Direct link to banned ppl profile
 - Move acc to check and api key to same file
+- Remove limmitation of checking max 100acc 
