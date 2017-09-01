@@ -7,16 +7,21 @@ pause = ('-----------------------------')
 
 
 def main():  # Main Menu Function
-    print('1. API Options''\n''2. Steam options''\n''3. Check for banned accounts')  # Main menu option list
+    print('1. API Options''\n''2. Steam options''\n''3. Check for vac banned accounts' '\n' 
+          '4. Check for trade banned accounts' '\n' '5. Check for Community banned accounts')  # Main menu option list
     Main_menu_input = input('enter number: ')
     if Main_menu_input == '1':
         api_options()
     elif Main_menu_input == '2':
         Steam_options()
     elif Main_menu_input == '3':
-        acc_check()
+        acc_check_vac()
+    elif Main_menu_input == '4':
+        acc_check_trade()
+    elif Main_menu_input == '5':
+        acc_check_community()
     elif Main_menu_input == '6':
-        process_data()
+        process_data_vac()
     else:
         print('Wrong number returning to Main Menu')
         return_to_mm()
@@ -90,10 +95,26 @@ def return_to_mm():  # If wrong number
     main()
 
 
-def acc_check():
+def acc_check_vac():
     print(pause)
     get_data()
-    process_data()
+    process_data_vac()
+    print(pause)
+    return_to_mm()
+
+
+def acc_check_trade():
+    print(pause)
+    get_data()
+    process_data_trade()
+    print(pause)
+    return_to_mm()
+
+
+def acc_check_community():
+    print(pause)
+    get_data()
+    process_data_community()
     print(pause)
     return_to_mm()
 
@@ -179,26 +200,79 @@ def get_data():
     print(pause)
 
 
-def process_data():
+def process_data_vac():
     file_base = open('Data_bans.json', 'r+')  # change file name
     data = json.load(file_base)
     file_base.close()
     n = (len(data['players']))  # Check number of lists
     print('Checking data for: ', n, 'Entries')  # prints number of players to check
     print(pause)
-    for n in range(0, n):  # start of checking loop
-        if (data['players'][n]['VACBanned']) == bool('True'):  # If player has vac ban
-            if data['players'][n]['NumberOfVACBans'] == int(1):  # grammar thing
-                print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
+    userinput10 = input('Do you want to see only vac banned accounts?' '\n' '1. Yes' '\n' '2. No' '\n' 'Answer: ') #
+    print(pause)
+    if userinput10 == '1': #Only banned accounts
+        for n in range(0, n):  # start of checking loop
+            if (data['players'][n]['VACBanned']) == bool('True'):  # If player has vac ban
+                if data['players'][n]['NumberOfVACBans'] == int(1):  # grammar thing
+                    print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
+                          'time || Last time:', data['players'][n]['DaysSinceLastBan'],
+                          'Days ago')  # Grammar thing option 1
+                else:
+                    print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
+                          'times || Last time:', data['players'][n]['DaysSinceLastBan'],
+                          'Days ago')  # grammar thing option 2
+    elif userinput10 == '2': #All accounts
+        for n in range(0, n):  # start of checking loop
+            if (data['players'][n]['VACBanned']) == bool('True'):  # If player has vac ban
+                if data['players'][n]['NumberOfVACBans'] == int(1):  # grammar thing
+                    print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
                       'time || Last time:', data['players'][n]['DaysSinceLastBan'],
                       'Days ago')  # Grammar thing option 1
-            else:
-                print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
+                else:
+                    print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
                       'times || Last time:', data['players'][n]['DaysSinceLastBan'],
                       'Days ago')  # grammar thing option 2
-        else:
-            print(data['players'][n]['SteamId'] + ' Clean')  # Players is clean
-    return_to_mm()
+            else:
+                print(data['players'][n]['SteamId'] + ' Clean')  # Players is clean
+
+
+def process_data_trade():
+    file_base = open('Data_bans.json', 'r+')  # change file name
+    data = json.load(file_base)
+    file_base.close()
+    n = (len(data['players']))  # Check number of lists
+    print('Checking data for: ', n, 'Entries')  # prints number of players to check
+    print(pause)
+    userinput11 = input('Do you want to see only banned accounts?' '\n' '1. yes' '\n' '2. No' '\n' 'Answer: ')
+    if userinput11 == '1':
+        for n in range(0, n):
+            if (data['players'][n]['EconomyBan']) == ('banned'):
+                print(data['players'][n]['SteamId'], 'Trade Banned')
+    elif userinput11 == '2':
+        for n in range(0, n):
+            if (data['players'][n]['EconomyBan']) == ('banned'):
+                print(data['players'][n]['SteamId'], 'Trade Banned')
+            else:
+                print(data['players'][n]['SteamId'], 'Clean')
+
+
+def process_data_community():
+    file_base = open('Data_bans.json', 'r+')  # change file name
+    data = json.load(file_base)
+    file_base.close()
+    n = (len(data['players']))  # Check number of lists
+    print('Checking data for: ', n, 'Entries')  # prints number of players to check
+    print(pause)
+    userinput12 = input('Do you want to see only banned accounts?' '\n' '1. Yes' '\n' '2. No' '\n' 'Answer: ')
+    if userinput12 == '1':
+        for n in range(0, n):
+            if (data['players'][n]['CommunityBanned']) == bool('true'):
+                print(data['players'][n]['SteamId'], 'Community ban')
+    elif userinput12 == '2':
+        for n in range(0, n):
+            if (data['players'][n]['CommunityBanned']) == bool('true'):
+                print(data['players'][n]['SteamId'], 'Community ban')
+            else:
+                print(data['players'][n]['SteamId'], 'Clean')
 
 
 main()
