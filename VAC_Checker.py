@@ -1,26 +1,27 @@
+import json
 import time
 import webbrowser
-import json
+
 import requests
 
 pause = ('-----------------------------')
 
 
 def main():  # Main Menu Function
-    print('1. API Options''\n''2. Steam options''\n''3. Check for vac banned accounts' '\n' 
+    print('1. API Options''\n''2. Steam options''\n''3. Check for vac banned accounts' '\n'
           '4. Check for trade banned accounts' '\n' '5. Check for Community banned accounts')  # Main menu option list
-    Main_menu_input = input('enter number: ')
-    if Main_menu_input == '1':
+    main_menu_input = input('enter number: ')
+    if main_menu_input == '1':
         api_options()
-    elif Main_menu_input == '2':
-        Steam_options()
-    elif Main_menu_input == '3':
+    elif main_menu_input == '2':
+        steam_options()
+    elif main_menu_input == '3':
         acc_check_vac()
-    elif Main_menu_input == '4':
+    elif main_menu_input == '4':
         acc_check_trade()
-    elif Main_menu_input == '5':
+    elif main_menu_input == '5':
         acc_check_community()
-    elif Main_menu_input == '6':
+    elif main_menu_input == '6':
         process_data_vac()
     else:
         print('Wrong number returning to Main Menu')
@@ -56,11 +57,11 @@ def api_options():  # API options
         api_options()
 
 
-def Steam_options():  # Steam options
+def steam_options():  # Steam options
     print(pause)
     print(
         '1. Add steam ID' '\n' '2. Remove Steam ID (NOT WORKING YET)''\n''3. Steam ID Converter''\n'
-        '7. Advanced steam ID converter (another script) ''8. Steam ID64 checker (external site)''\n''9. Main Menu')
+        '7. Advanced steam ID converter (another script)''\n' '8. Steam ID64 checker (external site)''\n''9. Main Menu')
     userinput2 = input('Enter number: ')
     if userinput2 == '1':
         print(pause)
@@ -69,24 +70,24 @@ def Steam_options():  # Steam options
         file.write(steamid + ',')
         file.close()
         print('steam ID: ' + steamid + ' has been added!')
-        Steam_options()
+        steam_options()
     elif userinput2 == '2':
         print(pause)
         print('test')  # add removal
-        Steam_options()
+        steam_options()
     elif userinput2 == '3':  # STEAM ID CONVERTER
-        Steam_ID_converter()
+        steam_id_converter()
     elif userinput2 == '7':
         webbrowser.open_new('https://github.com/arhi3a/Steam-ID-Converter')
-        Steam_options()
+        steam_options()
     elif userinput2 == '8':  # Steam ID64 checker site
         webbrowser.open_new('https://steamid.io/lookup/')
-        Steam_options()
+        steam_options()
     elif userinput2 == '9':
         return_to_mm()
     else:  # If wrong number
         print('wrong number returning')
-        Steam_options()
+        steam_options()
 
 
 def return_to_mm():  # If wrong number
@@ -119,67 +120,68 @@ def acc_check_community():
     return_to_mm()
 
 
-def Steam_ID_converter():
+def steam_id_converter():
     print(pause)
     print('1. Convert SteamID32 to SteamID64 (xxxxxxxx) ' '\n' '2. SteamID to SteamID64 (Steam_x:x:xxxxxxxx)'
           '\n' '3. Get SteamID64 from nickname (NOT WORKING YET)' '\n' '8. Return to Steam Options' '\n''9. Main Menu')
     userinput3 = input('Enter number: ')
-    ID_change_value = 76561197960265728
+    id_change_value = 76561197960265728
     if userinput3 == '1':  # ID32 to ID64 xxxxxxxxxxxxxxxxx(x= numbers)
         print(pause)
         userinput4 = input('Enter SteamID32: ')
-        sum = int(userinput4) + int(ID_change_value)
-        print('SteamID64: {0} '.format(sum))
+        sum_id = int(userinput4) + int(id_change_value)
+        print('SteamID64: {0} '.format(sum_id))
         userinput9 = input('Do you want to add SteamID64 to ban check list?' '\n' '1. Yes' '\n' '2. No' '\n' ': ')
         if userinput9 == '1':
             print(pause)
             file = open('Steam_id_list.txt', "a")
-            file.write(str(sum) + ',')
+            file.write(str(sum_id) + ',')
             file.close()
-            print('SteamID64: {0} '.format(sum), 'Has been saved')
-            Steam_ID_converter()
+            print('SteamID64: {0} '.format(sum_id), 'Has been saved')
+            steam_id_converter()
         elif userinput9 == '2':
-            Steam_ID_converter()
+            steam_id_converter()
         else:
-            Steam_ID_converter()
+            steam_id_converter()
     elif userinput3 == '2':  # SteamID to ID64  STEAM_0:y:zzzzzzz
         print(pause)
         userinput6 = input('Enter Steam ID: ')  # User ID input
         y = userinput6[8:9]  # STEAM_0:y:zzzzzz
         z = userinput6[10:]  # STEAM_0:y:z
-        Steam_ID_32_conv = int(z) * int(2) + int(y)
-        Steam_ID_64_conv = int(Steam_ID_32_conv) + int(ID_change_value)
-        print('Steam ID32: ', Steam_ID_32_conv)
-        print('Steam ID64: ', Steam_ID_64_conv)
+        steam_id32_conv = int(z) * int(2) + int(y)
+        steam_id_64_conv = int(steam_id32_conv) + int(id_change_value)
+        print('Steam ID32: ', steam_id32_conv)
+        print('Steam ID64: ', steam_id_64_conv)
         userinput7 = input(
-            'Do you want to add SteamID64 to ban checklist?' '\n' '1. Yes' '\n' '2. No' '\n' ': ')  # Do you want to save data question
+            'Do you want to add SteamID64 to ban checklist?' '\n' '1. Yes' '\n' '2. No' '\n' ': ')  # Save data?
         if userinput7 == '1':  # If yes
             print(pause)
             file = open('Steam_id_list.txt', "a")
-            file.write(str(Steam_ID_64_conv) + ',')
+            file.write(str(steam_id_64_conv) + ',')
             file.close()
-            print('steam ID64: ', str(Steam_ID_64_conv) + ' has been added!')
-            Steam_ID_converter()
+            print('steam ID64: ', str(steam_id_64_conv) + ' has been added!')
+            steam_id_converter()
         elif userinput7 == '2':  # If no
-            Steam_ID_converter()
+            steam_id_converter()
         else:
             print(pause)
             print('Wrong number returning')
-            Steam_ID_converter()
-    elif userinput3 == '4':  # Steam ID form URL http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=APIKEY&vanityurl=Nick
+            steam_id_converter()
+    elif userinput3 == '4':  # Steam ID form URL
         print(pause)
         userinput8 = input('Write nickname: ')
         api_steam = open('api_config.txt', 'r+')
-        nick_url = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=' + api_steam.read() + '&vanityurl=' + userinput8
+        nick_url = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=' + api_steam.read() + \
+                   '&vanityurl=' + userinput8
         webbrowser.open_new(nick_url)
-        Steam_options()  # temporary delete it!!
+        steam_options()  # temporary delete it!!
     elif userinput3 == '8':
-        Steam_options()
+        steam_options()
     elif userinput3 == '9':
         return_to_mm()
     else:  # if wrong number
         print('Wrong number')
-        Steam_ID_converter()
+        steam_id_converter()
 
 
 def get_data():
@@ -207,9 +209,9 @@ def process_data_vac():
     n = (len(data['players']))  # Check number of lists
     print('Checking data for: ', n, 'Entries')  # prints number of players to check
     print(pause)
-    userinput10 = input('Do you want to see only vac banned accounts?' '\n' '1. Yes' '\n' '2. No' '\n' 'Answer: ') #
+    userinput10 = input('Do you want to see only vac banned accounts?' '\n' '1. Yes' '\n' '2. No' '\n' 'Answer: ')  #
     print(pause)
-    if userinput10 == '1': #Only banned accounts
+    if userinput10 == '1':  # Only banned accounts
         for n in range(0, n):  # start of checking loop
             if (data['players'][n]['VACBanned']) == bool('True'):  # If player has vac ban
                 if data['players'][n]['NumberOfVACBans'] == int(1):  # grammar thing
@@ -220,17 +222,17 @@ def process_data_vac():
                     print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
                           'times || Last time:', data['players'][n]['DaysSinceLastBan'],
                           'Days ago')  # grammar thing option 2
-    elif userinput10 == '2': #All accounts
+    elif userinput10 == '2':  # All accounts
         for n in range(0, n):  # start of checking loop
             if (data['players'][n]['VACBanned']) == bool('True'):  # If player has vac ban
                 if data['players'][n]['NumberOfVACBans'] == int(1):  # grammar thing
                     print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
-                      'time || Last time:', data['players'][n]['DaysSinceLastBan'],
-                      'Days ago')  # Grammar thing option 1
+                          'time || Last time:', data['players'][n]['DaysSinceLastBan'],
+                          'Days ago')  # Grammar thing option 1
                 else:
                     print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
-                      'times || Last time:', data['players'][n]['DaysSinceLastBan'],
-                      'Days ago')  # grammar thing option 2
+                          'times || Last time:', data['players'][n]['DaysSinceLastBan'],
+                          'Days ago')  # grammar thing option 2
             else:
                 print(data['players'][n]['SteamId'] + ' Clean')  # Players is clean
 
