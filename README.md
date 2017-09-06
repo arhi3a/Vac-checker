@@ -31,3 +31,4 @@ etc.
 - ~~Direct link to banned ppl profile~~
 - Move acc to check and api key to same file
 - Remove limmitation of checking max 100acc 
+- Automatically convert SteamID to SteamID64 while adding new acc to check  
