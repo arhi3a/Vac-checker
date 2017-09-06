@@ -28,6 +28,6 @@ etc.
 - make banned since last login
 - ~~show only banned people~~
 - Get SteamID64 just by writing nickname
-- Direct link to banned ppl profile
+- ~~Direct link to banned ppl profile~~
 - Move acc to check and api key to same file
 - Remove limmitation of checking max 100acc 
