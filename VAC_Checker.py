@@ -222,6 +222,7 @@ def process_data_vac():
                     print(data['players'][n]['SteamId'] + ' Vac Banned ||', data['players'][n]['NumberOfVACBans'],
                           'times || Last time:', data['players'][n]['DaysSinceLastBan'],
                           'Days ago')  # grammar thing option 2
+        direct_link_vac()
     elif userinput10 == '2':  # All accounts
         for n in range(0, n):  # start of checking loop
             if (data['players'][n]['VACBanned']) == bool('True'):  # If player has vac ban
@@ -235,6 +236,31 @@ def process_data_vac():
                           'Days ago')  # grammar thing option 2
             else:
                 print(data['players'][n]['SteamId'] + ' Clean')  # Players is clean
+        direct_link_vac()
+    else:
+        print('Wrong number')
+        print(pause)
+        process_data_vac()
+
+
+def direct_link_vac():
+    print(pause)
+    input_direct = input('Do you want to get direct link to banned accounts' '\n' '1. Yes' '\n' '2. No' '\n')
+    print(pause)
+    file_base = open('Data_bans.json', 'r+')
+    data = json.load(file_base)
+    file_base.close()
+    n = (len(data['players']))  # Check number of lists
+    if input_direct == '1':
+        for n in range(0, n):
+            if (data['players'][n]['VACBanned']) == bool('True'):
+                print('http://steamcommunity.com/profiles/' + data['players'][n]['SteamId'])
+        return_to_mm()
+    if input_direct == '2':
+        return_to_mm()
+    else:
+        print('Wrong number')
+        direct_link_vac()
 
 
 def process_data_trade():
@@ -249,12 +275,38 @@ def process_data_trade():
         for n in range(0, n):
             if (data['players'][n]['EconomyBan']) == ('banned'):
                 print(data['players'][n]['SteamId'], 'Trade Banned')
+            direct_link_trade()
     elif userinput11 == '2':
         for n in range(0, n):
             if (data['players'][n]['EconomyBan']) == ('banned'):
                 print(data['players'][n]['SteamId'], 'Trade Banned')
             else:
                 print(data['players'][n]['SteamId'], 'Clean')
+        direct_link_trade()
+    else:
+        print('wrong number')
+        print(pause)
+        process_data_trade()
+
+
+def direct_link_trade():
+    print(pause)
+    input_direct = input('Do you want to get direct link to banned accounts' '\n' '1. Yes' '\n' '2. No' '\n')
+    print(pause)
+    file_base = open('Data_bans.json', 'r+')  # change file name
+    data = json.load(file_base)
+    file_base.close()
+    n = (len(data['players']))  # Check number of lists
+    if input_direct == '1':
+        for n in range(0, n):
+            if (data['players'][n]['EconomyBan']) == ('banned'):
+                print('http://steamcommunity.com/profiles/' + data['players'][n]['SteamId'])
+        return_to_mm()
+    if input_direct == '2':
+        return_to_mm()
+    else:
+        print('Wrong number')
+        direct_link_trade()
 
 
 def process_data_community():
@@ -269,12 +321,38 @@ def process_data_community():
         for n in range(0, n):
             if (data['players'][n]['CommunityBanned']) == bool('true'):
                 print(data['players'][n]['SteamId'], 'Community ban')
+        direct_link_community()
     elif userinput12 == '2':
         for n in range(0, n):
             if (data['players'][n]['CommunityBanned']) == bool('true'):
                 print(data['players'][n]['SteamId'], 'Community ban')
             else:
                 print(data['players'][n]['SteamId'], 'Clean')
+        direct_link_community()
+
+    else:
+        print('Wrong number')
+        process_data_community()
+
+
+def direct_link_community():
+    print(pause)
+    input_direct = input('Do you want to get direct link to banned accounts' '\n' '1. Yes' '\n' '2. No' '\n')
+    print(pause)
+    file_base = open('Data_bans.json', 'r+')  # change file name
+    data = json.load(file_base)
+    file_base.close()
+    n = (len(data['players']))  # Check number of lists
+    if input_direct == '1':
+        for n in range(0, n):
+            if (data['players'][n]['CommunityBanned']) == bool('true'):
+                print('http://steamcommunity.com/profiles/' + data['players'][n]['SteamId'])
+        return_to_mm()
+    if input_direct == '2':
+        return_to_mm()
+    else:
+        print('Wrong number')
+        direct_link_community()
 
 
 main()
