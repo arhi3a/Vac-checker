@@ -9,7 +9,7 @@ pause = ('-----------------------------')
 
 def main():  # Main Menu Function
     print('1. API Options''\n''2. Steam options''\n''3. Check for vac banned accounts' '\n'
-          '4. Check for trade banned accounts' '\n' '5. Check for Community banned accounts')  # Main menu option list
+          '4. Check for trade banned accounts' '\n' '5. Check for Community banned accounts' '\n' '9. Exit program')  # Main menu option list
     main_menu_input = input('enter number: ')
     if main_menu_input == '1':
         api_options()
@@ -23,6 +23,10 @@ def main():  # Main Menu Function
         acc_check_community()
     elif main_menu_input == '6':
         process_data_vac()
+    elif main_menu_input == '7':
+        last_login()
+    elif main_menu_input == '9':
+        quit_program()
     else:
         print('Wrong number returning to Main Menu')
         return_to_mm()
@@ -203,7 +207,7 @@ def get_data():
 
 
 def process_data_vac():
-    file_base = open('Data_bans.json', 'r+')  # change file name
+    file_base = open('Data_bans.json', 'r+')
     data = json.load(file_base)
     file_base.close()
     n = (len(data['players']))  # Check number of lists
@@ -355,4 +359,46 @@ def direct_link_community():
         direct_link_community()
 
 
-main()
+def last_login():
+    get_data()  # Downloads new ban data
+    time.sleep(3)
+    file_base = open('Data_bans.json', 'r+')  # Load new ban data
+    data = json.load(file_base)
+    file_base.close()
+
+    file_base_old = open('Data_bans_old.json', 'r+')  # Loads old ban data
+    data_old = json.load(file_base_old)
+    file_base_old.close()
+
+    n_new = (len(data['players']))  # Number of users in old ban data
+    n_old = ((len(data_old['players'])))  # Number of users in new ban data
+    n = n_new  # Lazy way :D
+
+    if n_new == (n_old):  # Check if number of profiles to check matches
+        print(pause)
+        for n in range(0, n):  # loop to print diffrences in vac ban status
+            if (data['players'][n]['VACBanned']) != (data_old['players'][n]['VACBanned']):
+                print(data['players'][n]['SteamId'] + ' Vac Banned since last login || ',
+                      data['players'][n]['DaysSinceLastBan'], ' Days ago')
+        print(pause)
+    else:  # If number of profiles to check does not match
+        print('Data does not match skipping banned since last login')
+    return_to_mm()
+
+
+def quit_program():
+    data_new = open('Data_bans.json', 'r+')
+    data_old = open('Data_bans_old.json', 'w')
+    data_old.write(str(data_new.read()))
+    data_old.close()
+    print(pause)
+    print('Goodbye')
+    print(pause)
+    quit()
+
+
+def startup():
+    last_login()
+    main()
+
+startup()
