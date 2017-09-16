@@ -380,6 +380,10 @@ def last_login():
             if (data['players'][n]['VACBanned']) != (data_old['players'][n]['VACBanned']):
                 print(data['players'][n]['SteamId'] + ' Vac Banned since last login || ',
                       data['players'][n]['DaysSinceLastBan'], ' Days ago')
+            if (data['players'][n]['EconomyBan']) != (data_old['players'][n]['EconomyBan']):
+                print(data['players'][n]['SteamId'] + ' Trade Banned since last login')
+            if (data['players'][n]['CommunityBanned']) != (data_old['players'][n]['CommunityBanned']):
+                print((data['players'][n]['SteamId'] + ' Community Banned since last login'))
         print(pause)
     else:  # If number of profiles to check does not match
         print('Data does not match skipping banned since last login')
@@ -398,7 +402,7 @@ def quit_program():
 
 
 def startup():
-    last_login()
     main()
+
 
 startup()
