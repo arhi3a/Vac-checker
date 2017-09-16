@@ -7,7 +7,7 @@ If you want to get steamID of players profile during game you can write status i
 If you want to remove steamID go to Steam_ID_list.txt and delete it manually (SteamID removal will be added later) <br/>
 If you want don't want to use 'banned since last login' delete ``last_login()`` in ``def startup()`` <br/>
 **If you want banned since last login function to work properly you must exit program using ``9. Exit program`` in main menu** <br/>
-I will improve banned since alst login function in some time <br/>
+I will improve banned since last login function in some time <br/>
 ### How it looks: 
 Main menu:<br />
 ![](http://i.imgur.com/A3VSawn.png)<br />
@@ -26,7 +26,7 @@ etc.
 - repair delete options
 - ~~add community ban checker~~
 - ~~add trade ban checke~~r
-- move SteamIDs to Database
+- move API key and other options like banned since last login to single Database
 - make simple GUI
 - ~~make banned since last login~~
 - ~~show only banned people~~
